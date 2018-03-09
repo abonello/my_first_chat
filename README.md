@@ -68,3 +68,25 @@ def user(username):
 def send_message(username, message):
     return "{0} says: {1}".format(username, message)
 ~~~~
+
+* * *
+## Next steps
+
+We want to be able to actually take this information (name / message) and store 
+it in a list.
+
+We want to be able to store our lists in our chat items in a python list. 
+1. Create an empty list called **messages**.
+    ~~~~python
+    messages = []
+    ~~~~
+2. Create a new function called **add_messages**. This is going to take in two parameters,
+    username and message.  
+    Inside this function we will use an append method:
+    ~~~~python
+    def add_messages(username, message):
+        messages.append("{}: {}".format(username, message))
+    ~~~~
+    that will store the username and message inside of the messages list.
+
+Update the info returned by the user function to show any stored messages.
