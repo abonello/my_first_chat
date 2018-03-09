@@ -133,3 +133,22 @@ Reformat output by using a h1 tag:
 ~~~~python
 return "<h1>Welcome, {0}</h1>{1}".format(username, get_all_messages())
 ~~~~
+
+* * *
+## Addint Time Stamp
+In order to be able to use dates, times and using timestamps we need to import
+datetime
+
+~~~~python
+from datetime import datetime
+~~~~
+
+The timestamp will be included in the list in the add_messages function. A new 
+variable called **now** will hold the current time which will then be appended
+to the messages list with the rest of the information:
+~~~~python
+def add_messages(username, message):
+    '''Add messages to the `messages` list.'''
+    now = datetime.now().strftime("%H:%M:%S")
+    messages.append("({}) {}: {}".format(now, username, message))
+~~~~
