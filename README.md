@@ -90,3 +90,46 @@ We want to be able to store our lists in our chat items in a python list.
     that will store the username and message inside of the messages list.
 
 Update the info returned by the user function to show any stored messages.
+
+Now the function send_message will store the message in messages list and then 
+redirects to user function. We need to import redirect.
+~~~~python
+from flask import Flask, redirect
+~~~~
+
+~~~~python
+@app.route('/<username>/<message>')
+def send_message(username, message):
+    '''Create a new message and redirect back to the caht page.'''
+    add_messages(username, message)
+    return redirect(username)
+~~~~
+The user function will then display the user name and any messages stored.
+~~~~python
+@app.route('/<username>')
+def user(username):
+    '''Display chat messages.'''
+    return "Welcome, {0}. <br>{1}".format(username, messages)
+~~~~
+
+A refinement on this:
+Using a get_all_messages function:
+~~~~python
+def get_all_messages():
+    '''Get all of the messages and separate them by a `br`.'''
+    return "<br>".join(messages)
+~~~~
+
+This function will be called in the return statement of the user function.
+~~~~python
+@app.route('/<username>')
+def user(username):
+    '''Display chat messages.'''
+    return "Welcome, {0}. <br>{1}".format(username, get_all_messages())
+~~~~
+This will tidy up the output by displaying each message on a new line.
+
+Reformat output by using a h1 tag:
+~~~~python
+return "<h1>Welcome, {0}</h1>{1}".format(username, get_all_messages())
+~~~~
