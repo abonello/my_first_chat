@@ -152,3 +152,6 @@ def add_messages(username, message):
     now = datetime.now().strftime("%H:%M:%S")
     messages.append("({}) {}: {}".format(now, username, message))
 ~~~~
+
+* * *
+## Upgrading storage to a List of Dictionaries
