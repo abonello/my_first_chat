@@ -1,6 +1,6 @@
 import os
 from datetime import datetime
-from flask import Flask, redirect
+from flask import Flask, redirect, render_template
 
 app = Flask(__name__)
 messages = []
@@ -21,7 +21,8 @@ def get_all_messages():
 def index():
     """Main Page with instructions."""
     # return "<h1>Hello World</h1>"
-    return "To send a message use /USERNAME/MESSAGE"
+    # return "To send a message use /USERNAME/MESSAGE"
+    return render_template("index.html")
 
 # Like a personalised home page for each user. Each user will have their URL.   
 @app.route('/<username>')

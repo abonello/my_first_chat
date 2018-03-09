@@ -155,3 +155,42 @@ def add_messages(username, message):
 
 * * *
 ## Upgrading storage to a List of Dictionaries
+~~~~python
+def add_messages(username, message):
+    '''Add messages to the `messages` list.'''
+    now = datetime.now().strftime("%H:%M:%S")
+    message_dict = {"timestamp": now, "from": username, "message": message}
+    messages.append(message_dict)
+~~~~
+
+For now we need to modify the output of **get_all_messages** function:
+~~~~python
+def get_all_messages():
+    '''Get all of the messages and separate them by a `br`.'''
+    return messages
+~~~~
+
+## Start using Templates
+
+We need to import render_template
+~~~~python
+from flask import Flask, redirect, render_template
+~~~~
+
+Create templates folder and index.html inside it.  
+The return of the index routing function is changed to point to this new html 
+template.
+
+~~~~python
+@app.route('/')
+def index():
+    """Main Page with instructions."""
+    return render_template("index.html")
+~~~~
+
+index.html is a simple html file. The body will contain the following paragraph
+for now:
+
+~~~~html
+<p>To send a message use /USERNAME/MESSAGE</p>
+~~~~
