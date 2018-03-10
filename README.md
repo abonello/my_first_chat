@@ -350,3 +350,61 @@ I also had to modify the chat.html file
     <span>{{ message }}</span><br>
     {% endfor %}
 ~~~~
+
+Now we have a user list stored in users.txt and the messages (together) with
+the username and timestamp stored in messages.txt
+
+## Refactor code to simplify it
+
+1. We are now using a txt file to store messages not a list:
+    ~~~~python
+    '''Add messages to the `messages` text file (previously it was a list).'''
+    ~~~~
+2. We can actually remove the dependency on storing this information in the 
+    dictionary now because we can just insert the values directly into the 
+    string in the add_messages function:
+    ~~~~python
+    def add_messages(username, message):
+        '''Add messages to the `messages` text file (previously it was a list).'''
+        # Write the chat message to the messages.txt file
+        with open("data/messages.txt", 'a') as chat_list:
+            chat_list.writelines("({0}) {1} - {2}\n".format(
+                datetime.now().strftime("%H:%M:%S"), 
+                username.title(), 
+                message))
+    ~~~~
+
+3. Currently we are writing to a file in two separate places. We need to 
+    centralize this in order to minimize the room for exceptions. Create a 
+    function called **write_to_file**. This takes two parameters; a filename 
+    and the data that we want to write to that file.
+    ~~~~python
+    def write_to_file(filename, data):
+    '''Handle the process of writing data to a file.'''
+    with open(filename, 'a') as file:
+        file.writelines(data)
+    ~~~~
+    The add_messages function has now been refactored as it writes to a file:
+    ~~~~python
+    def add_messages(username, message):
+        '''Add messages to the `messages` text file (previously it was a list).'''
+        # Write the chat message to the messages.txt file
+        write_to_file("data/messages.txt", "({0}) {1} - {2}\n".format(
+                datetime.now().strftime("%H:%M:%S"), 
+                username.title(), 
+                message))
+    ~~~~
+    The index function is also writing to a file. We can simplify this:
+    ~~~~python
+    @app.route('/', methods=['GET', 'POST'])
+    def index():
+        """Main Page with instructions."""
+        # Handle POST request
+        if request.method == "POST":
+            write_to_file("data/users.txt", request.form["username"] + "\n")
+            return redirect(request.form["username"])
+        return render_template("index.html")
+    ~~~~
+ 
+ 
+
