@@ -289,3 +289,29 @@ def user(username):
     return render_template("chat.html", 
                             username = username, chat_messages = messages)
 ~~~~
+
+
+##Simple Long Polling With JavaScript
+
+Long polling refreshes the page after a specified period of time. It is achieved 
+by using JavaScript's setTimeout function.  
+Code in chat.html
+~~~~javascript
+<!-- long polling -->
+<script>
+    // Reload the page every 5 seconds
+    setTimeout(function() {
+        location.reload();
+    }, 5000);
+</script>
+~~~~
+This will auto refresh teh page every 5 seconds.
+
+Next we need to reformat the display of the messages so that it displays each 
+message on a fresh line.
+~~~~html
+{% for message in chat_messages%}
+<span>({{ message["timestamp"] }}) {{ message["from"].title() }} - {{message["message"]}}</span><br>
+{% endfor %}
+~~~~
+

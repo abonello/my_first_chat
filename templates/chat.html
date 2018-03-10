@@ -8,6 +8,17 @@
 </head>
 <body>
     <h1>Welcome, {{ username }}</h1>
-    {{ chat_messages }}
+    <!--{{ chat_messages }}-->
+    {% for message in chat_messages%}
+    <span>({{ message["timestamp"] }}) {{ message["from"].title() }} - {{message["message"]}}</span><br>
+    {% endfor %}
+    
+    <!-- long polling -->
+    <script>
+        // Reload the page every 5 seconds
+        setTimeout(function() {
+            location.reload();
+        }, 5000);
+    </script>
 </body>
 </html>
