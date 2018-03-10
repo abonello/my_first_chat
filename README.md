@@ -315,3 +315,38 @@ message on a fresh line.
 {% endfor %}
 ~~~~
 
+## Save Chats To A .txt File
+
+Next step is to save our chat messages in a .txt file. This will make the chat 
+persistant by writing the chat messages to an external file.
+
+Modified  add messages function
+~~~~python
+def add_messages(username, message):
+    '''Add messages to the `messages` text file (previously it was a list).'''
+    now = datetime.now().strftime("%H:%M:%S")
+    message_dict = {"timestamp": now, "from": username, "message": message}
+    with open("data/messages.txt", 'a') as chat_list:
+        chat_list.writelines("({0}) {1} - {2}\n".format(
+            message_dict['timestamp'], 
+            message_dict['from'].title(), 
+            message_dict['message']))
+~~~~
+
+And modified get_all_messages function
+~~~~python
+def get_all_messages():
+    '''Get all of the messages and separate them by a `br`.'''
+    messages = []
+    with open("data/messages.txt", "r") as chat_messages:
+        messages = chat_messages.readlines()
+    return messages
+~~~~
+
+I also had to modify the chat.html file
+~~~~html
+    <h1>Welcome, {{ username }}</h1>
+    {% for message in chat_messages%}
+    <span>{{ message }}</span><br>
+    {% endfor %}
+~~~~

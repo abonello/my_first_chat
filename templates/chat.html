@@ -10,7 +10,8 @@
     <h1>Welcome, {{ username }}</h1>
     <!--{{ chat_messages }}-->
     {% for message in chat_messages%}
-    <span>({{ message["timestamp"] }}) {{ message["from"].title() }} - {{message["message"]}}</span><br>
+    {#<span>({{ message["timestamp"] }}) {{ message["from"].title() }} - {{message["message"]}}</span><br>#}
+    <span>{{ message }}</span><br>
     {% endfor %}
     
     <!-- long polling -->
