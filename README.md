@@ -231,3 +231,18 @@ file is that the web is stateless -- ie. it does not persist any data itself. We
 need to store it if we want the data to persist. Later on, using frameworks like
 Django, it will handle all users stuff for us which is a benefit of using a kind
 of batteries included framework.
+
+**BUG:** At the moment, all users are stored attached to each other with no 
+spaces or other separation. The next step is to store each user on a separate 
+line. This is corrected by adding a new line at the end of the appended string.
+~~~~python
+@app.route('/', methods=['GET', 'POST'])
+def index():
+    """Main Page with instructions."""
+    if request.method == "POST":
+        with open("data/users.txt", "a") as user_list:
+            user_list.write(request.form["username"] + "\n")
+        return redirect(request.form["username"])
+    return render_template("index.html")
+~~~~
+

@@ -23,7 +23,7 @@ def index():
     if request.method == "POST":
         # print(request.form)
         with open("data/users.txt", "a") as user_list:
-            user_list.write(request.form["username"])
+            user_list.write(request.form["username"] + "\n")
         return redirect(request.form["username"])
     # return "<h1>Hello World</h1>"
     # return "To send a message use /USERNAME/MESSAGE"
