@@ -246,3 +246,46 @@ def index():
     return render_template("index.html")
 ~~~~
 
+I do not understand why the tutor is using writelines instead of write. I do not 
+see the advantage of former or the disadvantage of the latter.
+
+* * *
+## Refactoring To Use chat.html Instead Of A Single String
+
+We will create a new html file to display our chat messages. This will work by 
+passing it the necessary chat messages.
+
+At the moment if we have more than one user using the app and one of them writes
+a message, that user sees the message but the other user will not see it unless
+his page is refreshed.
+
+One of the ways of getting around this is by doing something called **long 
+polling** in JavaScript.
+
+For now we have prepared the chat.html
+
+~~~~html
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Home Page</title>
+</head>
+<body>
+    <h1>Welcome, {{ username }}</h1>
+    {{ chat_messages }}
+</body>
+</html>
+~~~~
+
+And adjusted the user function of the username route
+~~~~python
+@app.route('/<username>')
+def user(username):
+    '''Display chat messages.'''
+    messages = get_all_messages()
+    return render_template("chat.html", 
+                            username = username, chat_messages = messages)
+~~~~
