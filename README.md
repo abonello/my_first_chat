@@ -194,3 +194,40 @@ for now:
 ~~~~html
 <p>To send a message use /USERNAME/MESSAGE</p>
 ~~~~
+
+## Storing Users in a text file
+
+We need to request a form in the index.html if the POST method is used.
+
+The first thing we need is to import request.
+
+~~~~python
+from flask import Flask, redirect, render_template, request
+~~~~
+
+Then in the index function of the root route we need to check if the POST method
+was used. For now we will print the result in the CLI.
+~~~~python
+@app.route('/', methods=['GET', 'POST'])
+def index():
+    """Main Page with instructions."""
+    if request.method == "POST":
+        print(request.form)
+    return render_template("index.html")
+~~~~
+
+For now, the form in the index.html looks like the following:
+~~~~html
+<form method="POST">
+    <label for="username">Username:</label>
+    <input type="text" id="username" name="username"/>
+    <button>Go to chat!</button>
+</form>
+~~~~
+
+We need to store the user in a text file.  
+Create a **users.txt** file in a folder called **data**. The reason we need this
+file is that the web is stateless -- ie. it does not persist any data itself. We
+need to store it if we want the data to persist. Later on, using frameworks like
+Django, it will handle all users stuff for us which is a benefit of using a kind
+of batteries included framework.
