@@ -407,4 +407,25 @@ the username and timestamp stored in messages.txt
     ~~~~
  
  
+* * *
+## Deploy on Heroku
+
+login to heroku
+~~~~
+heroku login
+~~~~
+Enter email and password.  
+Then create a new app. I am calling it my-first-chatroom.
+~~~~
+heroku apps:create my-first-chatroom
+~~~~
+Heroku adds a git remote to our local git. To view this use:
+~~~~
+git remote -v
+~~~~
+Now push to Heroku
+~~~~
+git push -u heroku master
+~~~~
+
 
