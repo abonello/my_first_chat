@@ -436,3 +436,17 @@ We need to set scales. This sets one dynamo worker running.
 ~~~~
 heroku ps:scale web=1
 ~~~~
+
+At this point there is a Heroku error. Logging in to the dashboard
+I can see what the error is. The process can also be done in command line but 
+it is easier in the dashboard.
+We need to create some config VARS.
+In heroku, once you get into your app, go to Settings. Then select 
+**Reveal Config Vars**. Here input key, value pairs for host IP and PORT:
+|IP| 0.0.0.0|
+|:-:|-|
+|**PORT**|**5000** |
+Follow this by **More > Restart all dynos**
+Open the App once more.
+
+Notice that the old messages are still available.
