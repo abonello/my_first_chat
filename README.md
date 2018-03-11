@@ -1,5 +1,7 @@
 # Flask Chat App
 
+This project is currently hosted [here](https://my-first-chatroom.herokuapp.com/).
+
 This is a chat application written using Flask. The purpose of this project is 
 to take data from a URL (user names and chat messages) and store it in a Python 
 list. Once we get beyond that then we can look at the possibility of storing it 
@@ -135,7 +137,7 @@ return "<h1>Welcome, {0}</h1>{1}".format(username, get_all_messages())
 ~~~~
 
 * * *
-## Addint Time Stamp
+## Adding Time Stamp
 In order to be able to use dates, times and using timestamps we need to import
 datetime
 
