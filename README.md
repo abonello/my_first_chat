@@ -423,9 +423,16 @@ Heroku adds a git remote to our local git. To view this use:
 ~~~~
 git remote -v
 ~~~~
+Create a Procfile
+~~~~
+echo web: python run.py > Procfile
+~~~~
 Now push to Heroku
 ~~~~
 git push -u heroku master
 ~~~~
 
-
+We need to set scales. This sets one dynamo worker running.
+~~~~
+heroku ps:scale web=1
+~~~~
